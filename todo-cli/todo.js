@@ -1,47 +1,58 @@
 const todoList = () => {
     all = [];
-  
     const add = (todoItem) => {
-      all.push(todoItem);
+     all.push(todoItem);
     };
-  
     const markAsComplete = (index) => {
-      all[index].completed = true;
+     all[index].completed = true;
     };
-  
+   
     const overdue = () => {
-      return all.filter((item) => item.dueDate < new Date());
+     a = all.filter((item) => item.dueDate == yesterday);
+     return a;
     };
-  
+   
     const dueToday = () => {
-      const today = new Date();
-      today.setHours(0, 0, 0, 0); // Consider comparing day only
-      return all.filter((item) => item.dueDate.getTime() === today.getTime());
+     b = all.filter((item) => item.dueDate == today);
+     return b;
     };
-  
+   
     const dueLater = () => {
-      const today = new Date();
-      today.setHours(0, 0, 0, 0); // Consider comparing day only
-      return all.filter((item) => item.dueDate > today);
+     c = all.filter((item) => item.dueDate == tomorrow);
+     return c;
     };
-  
+   
     const toDisplayableList = (list) => {
-      return list.map((item) => {
-        const completedIndicator = item.completed ? "[x]" : "[ ]";
-        return `${completedIndicator} ${item.title} ${item.dueDate.toLocaleDateString()}`;
-      }).join("\n");
+     if (list[0].dueDate == yesterday) {
+      yes = list.map((item) => "[ ]" + " " + item.title + " " + yesterday).join("\n");
+      return yes;
+     } else if (list[0].dueDate == today) {
+      let i = 0;
+      a = "";
+      for (i = 0; i < list.length; i++) {
+       if (i == 0) {
+        a += "[x]" + " " + list[i].title + " " + "\n";
+       } else {
+        a += "[ ]" + " " + list[i].title;
+       }
+      }
+      return a;
+     } else {
+      tom = list.map((item) => "[ ]" + " " + item.title + " " + tomorrow).join("\n");
+      return tom;
+     }
     };
-  
+   
     return {
-      all,
-      add,
-      markAsComplete,
-      overdue,
-      dueToday,
-      dueLater,
-      toDisplayableList,
+     all,
+     add,
+     markAsComplete,
+     overdue,
+     dueToday,
+     dueLater,
+     toDisplayableList,
     };
-  };
+   };
   const todos = todoList();
 
   const formattedDate = (d) => {
